@@ -4,7 +4,7 @@ import cats.effect.{Blocker, ExitCode, IO, IOApp, Resource}
 import doobie.hikari.HikariTransactor
 import doobie.implicits._
 import io.chrisdavenport.log4cats.slf4j.Slf4jLogger
-import io.github.oybek.dbrush.Engine._
+import io.github.oybek.dbrush.syntax._
 import io.github.oybek.dbrush.model.Migration
 
 import scala.concurrent.ExecutionContext
