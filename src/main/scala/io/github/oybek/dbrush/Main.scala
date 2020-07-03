@@ -16,9 +16,9 @@ object Main extends IOApp {
   override def run(args: List[String]): IO[ExitCode] =
     for {
       logger <- Slf4jLogger.create[F]
-      _ <- resources
-        .use {
-          transactor =>
+      _ <-
+        resources
+          .use { transactor =>
             lazy val createCity =
               sql"""
                    |create table city(
@@ -43,10 +43,12 @@ object Main extends IOApp {
               Migration("create student", createStudent),
               Migration("plug fuzzy search", plugFuzzySearch)
             ).exec(transactor, Some(logger.info(_: String)))
-        }
+          }
     } yield ExitCode.Success
 
-  private def resources(implicit ec: ExecutionContext): Resource[F, HikariTransactor[F]] =
+  private def resources(implicit
+      ec: ExecutionContext
+  ): Resource[F, HikariTransactor[F]] =
     HikariTransactor.newHikariTransactor[F](
       "org.postgresql.Driver",
       "jdbc:postgresql://localhost:5432/gdetram",
