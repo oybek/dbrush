@@ -1,7 +1,4 @@
-# DB RUSH
-
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=oybek_db-rush&metric=ncloc)](https://sonarcloud.io/dashboard?id=oybek_db-rush)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=oybek_db-rush&metric=coverage)](https://sonarcloud.io/dashboard?id=oybek_db-rush)
+# DB RUSH ![master](https://github.com/oybek/taxi4s/workflows/master/badge.svg) [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=oybek_db-rush&metric=ncloc)](https://sonarcloud.io/dashboard?id=oybek_db-rush) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=oybek_db-rush&metric=coverage)](https://sonarcloud.io/dashboard?id=oybek_db-rush) <a href="https://typelevel.org/cats/"><img src="https://typelevel.org/cats/img/cats-badge.svg" height="40px" align="right" alt="Cats friendly" /></a>
 
 *Super simple pure migration tool for scala*
 
@@ -11,6 +8,9 @@ described migration file.
 **DB RUSH** is a simple library to do migrations right in scala code.
 
 ```scala
+import doobie._
+import doobie.implicits._
+
 lazy val createCity =
   sql"""
        |create table city(
@@ -53,7 +53,7 @@ hash (md5) mismatch at migration phase.
 
 Library creates `db_rush_commits` for usage:
 ```sql
-gdetram=# select * from db_rush_commits;
+test_db=# select * from db_rush_commits;
  index |       label       |               md5
 -------+-------------------+----------------------------------
      1 | create city       | 6AD188238A2F3B19E0AE1FEBB7383992
