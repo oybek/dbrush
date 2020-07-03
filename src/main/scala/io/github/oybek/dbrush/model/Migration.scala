@@ -7,11 +7,9 @@ import cats.data.NonEmptyList
 import doobie.Fragment
 import io.github.oybek.dbrush.util.SqlOps._
 
-case class Migration(label: String, fr: Fragment, frs: Fragment*) {
+final case class Migration(label: String, fr: Fragment, frs: Fragment*) {
   lazy val md5Hash: String = {
-    val md5Hash = java
-      .security
-      .MessageDigest
+    val md5Hash = java.security.MessageDigest
       .getInstance("MD5")
       .digest(NonEmptyList.of(fr, frs: _*).mkString_(";").getBytes)
     val bigInt = new BigInteger(1, md5Hash)
