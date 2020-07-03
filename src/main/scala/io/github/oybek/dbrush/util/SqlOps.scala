@@ -6,4 +6,8 @@ import doobie.Fragment
 object SqlOps {
   // TODO: sql normalize
   implicit val showFragment: Show[Fragment] = Show.show(_.update.sql)
+
+  def normalizeQuery(query: String): String = {
+    query.trim
+  }
 }

@@ -5,7 +5,7 @@ object Dependencies {
   object V {
     val catsCore = "2.0.0"
     val catsEffect = "2.0.0"
-    val scalaTest = "3.0.5"
+    val scalaTest = "3.2.0"
     val slf4j = "1.7.26"
     val logback = "1.2.3"
     val doobie = "0.8.8"
