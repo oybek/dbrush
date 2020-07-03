@@ -5,6 +5,10 @@ import org.scalatest.matchers.should
 
 class SqlNormalizationSpec extends AnyFlatSpec with should.Matchers {
 
+  "'\\n' '\\t' ' '" should "be whitespaces" in {
+    "\n\t ".forall(_.isWhitespace) should be (true)
+  }
+
   "extra whitespaces" should "be removed" in {
     SqlOps.normalizeQuery("  create     table foo (\nbar   varchar)") should be(
       "create table foo(bar varchar)"
