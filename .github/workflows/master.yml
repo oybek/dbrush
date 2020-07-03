@@ -7,11 +7,8 @@ on:
 
 jobs:
   job:
-
     runs-on: ubuntu-latest
-
     steps:
-
       - uses: actions/checkout@v1
 
       - name: Cache ivy
@@ -27,12 +24,9 @@ jobs:
         with:
           java-version: 1.8
 
-      - name: Check code formatting
-        run: sbt scalafmtCheckAll
-
-      - name: Test
+      - name: Lint & Test
         run: |
-          sbt clean coverage test
+          sbt scalafmtCheckAll clean coverage test
           sbt coverageReport
 
       - name: Sonar scan

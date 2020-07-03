@@ -1,16 +1,12 @@
 package io.github.oybek.dbrush.db
 
 import cats.effect.IO
-import com.dimafeng.testcontainers.{
-  Container,
-  ForAllTestContainer,
-  PostgreSQLContainer
-}
+import com.dimafeng.testcontainers.{ForAllTestContainer, PostgreSQLContainer}
 import doobie.scalatest.IOChecker
 import doobie.util.ExecutionContexts
 import doobie.util.transactor.Transactor
-import io.github.oybek.dbrush.Engine._
 import io.github.oybek.dbrush.model.Migration
+import io.github.oybek.dbrush.syntax._
 import org.scalatest.funsuite.AnyFunSuite
 
 trait QueriesSpec extends AnyFunSuite with IOChecker with ForAllTestContainer {
