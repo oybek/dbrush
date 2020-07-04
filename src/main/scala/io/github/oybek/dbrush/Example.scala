@@ -10,7 +10,7 @@ import io.github.oybek.dbrush.model.Migration
 import scala.concurrent.ExecutionContext
 import scala.concurrent.ExecutionContext.Implicits.global
 
-object Main extends IOApp {
+object Example extends IOApp {
   type F[+T] = IO[T]
 
   override def run(args: List[String]): IO[ExitCode] =
@@ -21,8 +21,8 @@ object Main extends IOApp {
           .use { transactor =>
             lazy val createCity =
               sql"""
-                   |create table city(
-                   |  name varchar,
+                   |create table City(
+                   |  Name varchar,
                    |  population int not null
                    |)
                    |""".stripMargin
