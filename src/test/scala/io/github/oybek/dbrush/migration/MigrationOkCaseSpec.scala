@@ -8,6 +8,8 @@ import io.github.oybek.dbrush.model.Migration
 import io.github.oybek.dbrush.syntax.MigrationsOps
 import org.scalatest.matchers.should.Matchers.convertToAnyShouldWrapper
 
+import scala.collection.mutable.ArrayBuffer
+
 class MigrationOkCaseSpec extends Common {
 
   override def afterStart(): Unit = ()
@@ -29,14 +31,14 @@ class MigrationOkCaseSpec extends Common {
          |""".stripMargin
 
   test("when all migration success") {
-    Slf4jLogger
-      .create[IO]
-      .flatMap { logger =>
-        List(
-          Migration("create city", createCity),
-          Migration("create student", createStudent)
-        ).exec(transactor, Some(logger.info(_: String)))
-      }
+    val logs = new ArrayBuffer[String]()
+    val logger = Some((x: String) => IO { logs.addOne(x); () })
+
+    List(
+      Migration("create city", createCity),
+      Migration("create student", createStudent)
+    )
+      .exec[IO](transactor, logger)
       .attempt
       .unsafeRunSync() shouldBe ().asRight[Throwable]
   }
