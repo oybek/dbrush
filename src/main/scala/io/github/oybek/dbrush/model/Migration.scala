@@ -5,7 +5,7 @@ import java.math.BigInteger
 import cats.implicits._
 import cats.data.NonEmptyList
 import doobie.Fragment
-import io.github.oybek.dbrush.util.SqlOps._
+import io.github.oybek.dbrush.syntax.SqlOps._
 
 final case class Migration(label: String, fr: Fragment, frs: Fragment*) {
   lazy val md5Hash: String = {

@@ -1,10 +1,9 @@
-package io.github.oybek.dbrush.util
+package io.github.oybek.dbrush.syntax
 
 import cats.Show
 import doobie.Fragment
 
 object SqlOps {
-  // TODO: sql normalize
   implicit val showFragment: Show[Fragment] = Show.show(
     ((x: Fragment) => x.update.sql).andThen(normalizeQuery)
   )

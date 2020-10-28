@@ -1,4 +1,4 @@
-package io.github.oybek.dbrush.util
+package io.github.oybek.dbrush.syntax
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should
