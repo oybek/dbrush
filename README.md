@@ -7,6 +7,14 @@ described migration file.
 
 **DB RUSH** is a simple library to do migrations right in scala code.
 
+Import:
+```scala
+libraryDependencies ++= Seq(
+  "io.github.oybek" % "dbrush" % "0.1"
+)
+```
+
+Example:
 ```scala
 import doobie._
 import doobie.implicits._
