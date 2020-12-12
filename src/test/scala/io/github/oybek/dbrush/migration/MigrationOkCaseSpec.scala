@@ -2,6 +2,7 @@ package io.github.oybek.dbrush.migration
 
 import cats.effect.IO
 import cats.implicits.catsSyntaxEitherId
+import doobie._
 import doobie.implicits._
 import io.github.oybek.dbrush.model.Migration
 import io.github.oybek.dbrush.syntax.MigrationsOps
