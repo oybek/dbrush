@@ -15,20 +15,26 @@ trait MigrationExecutor[F[_]] {
 }
 
 object MigrationExecutor {
-  def make[F[_]: BracketThrow](tx: Transactor[F], log: Option[String => F[Unit]] = None): MigrationExecutor[F] =
+  def make[F[_]: BracketThrow](
+      tx: Transactor[F],
+      log: Option[String => F[Unit]] = None
+  ): MigrationExecutor[F] =
     new MigrationExecutor[F] {
       override def apply(migrations: List[Migration]): F[Unit] =
         for {
-          _ <- log.traverse_(_("DbRush - Create table if not exists db_rush_commits"))
+          _ <- log.traverse_(
+            _("DbRush - Create table if not exists db_rush_commits")
+          )
           _ <- Queries.createCommitTable.run.transact(tx)
           _ <- log.traverse_(_("DbRush - Loading commits"))
           commits <- Queries.selectCommit.to[List].transact(tx)
           _ <- log.traverse_(_("DbRush - Sorting loaded commits by index"))
           sortedCommits = commits.sortBy(_.index)
-          _ <- sortedCommits
-            .map(Some(_))
-            .zipAll(migrations.map(Some(_)), None, None)
-            .traverse_(cases)
+          _ <-
+            sortedCommits
+              .map(Some(_))
+              .zipAll(migrations.map(Some(_)), None, None)
+              .traverse_(cases)
           _ <- log.traverse_(_("DbRush - Migration successful"))
         } yield ()
 
@@ -49,7 +55,9 @@ object MigrationExecutor {
           fail(s"Label not matching got: '${m.label}' expected: '${c.label}'")
 
         case (Some(c), Some(m)) if c.md5 != m.md5Hash =>
-          fail(s"Migration '${c.label}' md5 mismatch, got: '${m.md5Hash}' expected: '${c.md5}'")
+          fail(
+            s"Migration '${c.label}' md5 mismatch, got: '${m.md5Hash}' expected: '${c.md5}'"
+          )
 
         case (Some(_), Some(m)) =>
           log.traverse_(_(s"DbRush - Skipping migration '${m.label}'"))
