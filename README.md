@@ -52,7 +52,7 @@ List(
   Migration("create city", createCity, createSchool),
   Migration("create student", createStudent),
   Migration("plug fuzzy search", plugFuzzySearch)
-).exec(transactor)
+).exec[IO](transactor) // F[Unit]
 ```
 
 Each migration executed within one transaction.
