@@ -24,6 +24,14 @@ trait CreateSyntax {
           columns = columns.toList
         )
     } }
+    object ifNotExists {
+      def table(name: String)(columns: Column*): Action =
+        Create(
+          ifNotExists = true,
+          tableName = name,
+          columns = columns.toList
+        )
+    }
     def table(name: String)(columns: Column*): Action =
       Create(
         ifNotExists = false,
